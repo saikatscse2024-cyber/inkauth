@@ -1,7 +1,7 @@
-import { createClient } from "@libsql/client";
+import { createClient } from "@libsql/client/web";
 
 export const tursoClient = () => {
-  const url = process.env.TURSO_DATABASE_URL;
+  let url = process.env.TURSO_DATABASE_URL;
   const authToken = process.env.TURSO_AUTH_TOKEN;
 
   if (!url || !authToken) {
@@ -9,8 +9,10 @@ export const tursoClient = () => {
     return null;
   }
 
-  return createClient({
-    url,
-    authToken,
-  });
+  // @libsql/client/web requires https:// not libsql:// — convert automatically
+  if (url.startsWith("libsql://")) {
+    url = url.replace("libsql://", "https://");
+  }
+
+  return createClient({ url, authToken });
 };

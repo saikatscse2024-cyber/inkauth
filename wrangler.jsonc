@@ -22,4 +22,8 @@
   "observability": {
     "enabled": true
   }
+  // NOTE: Secret env vars (TURSO_AUTH_TOKEN, ADMIN_SECRET) must be added via
+  // Cloudflare Dashboard → Pages → Settings → Environment Variables → Add Secret
+  // DO NOT hard-code secrets here. Variables listed below are non-secret:
+  // "vars": { "ADMIN_ID": "admin" }
 }
